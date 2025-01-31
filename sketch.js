@@ -22,22 +22,19 @@ if (weatherJSON && weatherJSON.properties && weatherJSON.properties.periods) {
 }
 
 
-function draw() {
-  background(220);
-  let px = dx // dx * (i+1), where i = 0
-  let py = map( weatherJSON.properties.periods[0].temperature, minTemp, maxTemp, 0.8*height, 0.2*height)
-  for( let i = 1; i < weatherJSON.properties.periods.length; i++ ) {
-    let cx = dx * (i+1)
-    let cy = map( weatherJSON.properties.periods[i].temperature, minTemp, maxTemp, 0.8*height, 0.2*height)
-    line(px,py,cx,cy)
-    px = cx
-    py = cy
+ if (weatherJSON && weatherJSON.properties && weatherJSON.properties.periods) {
+    let forecast = weatherJSON.properties.periods;
+    let px = dx;
+    let py = map(forecast[0].temperature, minTemp, maxTemp, 0.8 * height, 0.2 * height);
+    
+    for (let i = 1; i < forecast.length; i++) {
+      let cx = dx * (i + 1);
+      let cy = map(forecast[i].temperature, minTemp, maxTemp, 0.8 * height, 0.2 * height);
+      line(px, py, cx, cy);
+      px = cx;
+      py = cy;
     }
   } else {
     text("Failed to load weather data.", 20, 20);
   }
-}
-
-function keyPressed() {
-  redraw()
 }
