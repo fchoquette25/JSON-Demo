@@ -33,8 +33,9 @@ if (weatherJSON && weatherJSON.properties && weatherJSON.properties.periods) {
       line(px, py, cx, cy);
       px = cx;
       py = cy;
-    }
+   }
   } else {
     text("Failed to load weather data.", 20, 20);
   }
 }
+
