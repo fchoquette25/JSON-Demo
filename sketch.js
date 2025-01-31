@@ -11,20 +11,16 @@ function setup() {
   createCanvas(600, 400);
   dx = width/(weatherJSON.properties.periods.length+2)
   
-  // const fit = (img) => {
-  //   img.resize(dx,0)
-  //   redraw()
-  // }
+if (weatherJSON && weatherJSON.properties && weatherJSON.properties.periods) {
+    dx = width / (weatherJSON.properties.periods.length + 2);
   
-  for( const p of weatherJSON.properties.periods ) {
-    minTemp = min(p.temperature, minTemp)
-    maxTemp = max(p.temperature, maxTemp)
-    // if( ! (p.icon in images) ) {
-    //   images[p.icon] = loadImage(p.icon, fit) 
-    // }    
+  for (const p of weatherJSON.properties.periods) {
+      minTemp = min(p.temperature, minTemp);
+      maxTemp = max(p.temperature, maxTemp);
+    }
   }
-  noLoop()
 }
+
 
 function draw() {
   background(220);
@@ -36,12 +32,10 @@ function draw() {
     line(px,py,cx,cy)
     px = cx
     py = cy
-    // if( weatherJSON.properties.periods[i].icon in images ) {
-    //   image(images[weatherJSON.properties.periods[i].icon],dx*(i+1),height/2)   
-    // }    
+    }
+  } else {
+    text("Failed to load weather data.", 20, 20);
   }
-  
-  // console.log(images)
 }
 
 function keyPressed() {
